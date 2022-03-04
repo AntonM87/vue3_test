@@ -13,7 +13,7 @@
           <div>
             <strong>Адрес: </strong>
           </div>
-          <input v-model="inputValue" type="text" placeholder="Введите адрес">
+          <input @input="setInputValue" :value="inputValue" type="text" placeholder="Введите адрес">
         </div>
         <button
             class="btn"
@@ -69,7 +69,7 @@ export default {
   data() {
     return {
       address: this.person.address,
-      inputValue: '',
+      inputValue: this.person.address,
       isShowEditMode: false,
     }
   },
@@ -88,9 +88,10 @@ export default {
       person.address = this.inputValue;
       this.$emit('edit', this.person)
       this.isShowEditMode = false;
-      this.inputValue = '';
     },
-
+    setInputValue(e){
+      this.inputValue = e.target.value;
+    }
   }
 }
 </script>

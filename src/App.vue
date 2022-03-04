@@ -66,7 +66,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 * {
   padding: 0;
@@ -80,10 +80,11 @@ body{
   justify-content: center;
   align-items: center;
   width: 100vw;
+  #app {
+    width: 50vw;
+  }
 }
-#app {
-  width: 50vw;
-}
+
 .btn{
   border: .25rem;
   padding: 0.65rem 1.25rem;
