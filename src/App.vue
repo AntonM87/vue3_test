@@ -6,12 +6,11 @@
   <PersonsList
       @remove="removePerson"
       v-if="persons.length > 0"
-      :persons="this.persons"/>
+      :persons="persons"/>
   <h2 v-else>Список пока пуст</h2>
 </template>
 
 <script>
-import {v4 as uuid} from 'uuid';
 import PersonsList from "@/components/PersonsList";
 import ModalWindow from "@/components/ModalWindow";
 import FormPerson from "@/components/FormPerson";
@@ -24,7 +23,7 @@ export default {
       modal:false,
       persons: [
         {
-          id: uuid(),
+          id: Date.now(),
           value: 'какое то название',
           address: 'какая то улица',
           ogrn: 'какой то огрн',
@@ -32,7 +31,7 @@ export default {
           registrationDate: Date.now()
         },
         {
-          id: uuid(),
+          id: Date.now(),
           value: 'какое то название',
           address: 'какая то улица',
           ogrn: 'какой то огрн',
@@ -40,7 +39,7 @@ export default {
           registrationDate: Date.now()
         },
         {
-          id: uuid(),
+          id: Date.now(),
           value: 'какое то название',
           address: 'какая то улица',
           ogrn: 'какой то огрн',

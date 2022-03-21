@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import token from "@/token/token";
 export default {
   name: "FormPerson",
   data() {
@@ -69,8 +70,14 @@ export default {
     },
 
     async fetchPerson() {
+
+      if (this.person.inn === ''){
+        alert('ИНН необходимо заполнить');
+        return false
+      }
+
       const url = "https://suggestions.dadata.ru/suggestions/api/4_1/rs/findById/party";
-      const token = "dcfc0c5e0059e1619b35d0a39e9905c64be4dca8";
+      const tokenQuery = token.token;
       const query = this.person.inn;
 
       const options = {
@@ -79,7 +86,7 @@ export default {
         headers: {
           "Content-Type": "application/json",
           "Accept": "application/json",
-          "Authorization": "Token " + token
+          "Authorization": "Token " + tokenQuery
         },
         body: JSON.stringify({query})
       }

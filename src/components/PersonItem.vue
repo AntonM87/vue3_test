@@ -15,13 +15,20 @@
           </div>
           <input @input="setInputValue" :value="inputValue" type="text" placeholder="Введите адрес">
         </div>
-        <button
-            class="btn"
-            @click.stop
-            @click="saveAddress(person)"
-            type="submit"
-        >Сохранить
-        </button>
+        <div class="btn-wrapper">
+          <button
+              class="btn"
+              @click.stop
+              @click="saveAddress(person)"
+          >Сохранить
+          </button>
+          <button
+              class="btn"
+              @click.stop
+              @click="cancel"
+          >Отмена
+          </button>
+        </div>
       </div>
       <div v-else-if="!isShowEditMode" class="address-wrapper">
         <div>
@@ -68,6 +75,7 @@ export default {
   },
   data() {
     return {
+      strBuffer: '',
       address: this.person.address,
       inputValue: this.person.address,
       isShowEditMode: false,
@@ -76,12 +84,18 @@ export default {
 
   methods: {
     getRegistrationDate() {
+      console.log(this.person.value, this.person.registrationDate)
+
+
+
       const date = new Date(this.person.registrationDate);
       const day = date.getDay() < 10 ? `0${date.getDay()}` : `${date.getDay()}`;
       const month = date.getDay() < 10 ? `0${date.getMonth()}` : `${date.getMonth()}`;
       return `${day}-${month}-${date.getFullYear()}`
+
     },
     editAddress() {
+      this.strBuffer = this.inputValue;
       this.isShowEditMode = true;
     },
     saveAddress(person) {
@@ -89,7 +103,11 @@ export default {
       this.$emit('edit', this.person)
       this.isShowEditMode = false;
     },
-    setInputValue(e){
+    cancel() {
+      this.inputValue = this.strBuffer;
+      this.isShowEditMode = false;
+    },
+    setInputValue(e) {
       this.inputValue = e.target.value;
     }
   }
@@ -130,17 +148,29 @@ export default {
 .btn:active {
   background: rgba(0, 140, 255, 1);
 }
-strong{
+
+strong {
   margin-right: 1rem;
 }
+
 .address-wrapper,
 .address-wrapper-edit {
   width: 100%;
   height: 1rem;
-    display: flex;
+  display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+}
+.btn-wrapper{
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  align-items: center;
+}
+.btn-wrapper > button:first-child{
+  margin-right: 1rem;
+  background: red;
 }
 
 .form {
