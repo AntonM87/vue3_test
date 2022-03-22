@@ -28,7 +28,6 @@ export default {
         inn: '',
         registrationDate: new Date(),
       },
-      requestPerson: ''
     }
   },
   methods: {
@@ -51,13 +50,7 @@ export default {
         registrationDate: '',
       }
     },
-    getRegistrationDate() {
-      const date = new Date();
-      const day = date.getDate() < 10 ? `0${date.getDate()}` : `${date.getDate()}`;
-      const month = date.getDay() < 10 ? `0${date.getMonth() + 1}` : `${date.getMonth() + 1}`;
-      const year = date.getFullYear();
-      return `${day}-${month}-${year}`;
-    },
+
     parseResponse(response) {
       this.person.value = response.suggestions[0].value;
       const country = response.suggestions[0].data.address.data.country;
@@ -65,7 +58,7 @@ export default {
       this.person.address = `${country} ${address}`;
       this.person.ogrn = response.suggestions[0].data.ogrn;
       this.person.inn = response.suggestions[0].data.inn;
-      this.person.registrationDate = response.suggestions[0].data.ogrn_date;
+      this.person.registrationDate = response.suggestions[0].data.state.registration_date;
 
     },
 
@@ -73,7 +66,7 @@ export default {
 
       if (this.person.inn === ''){
         alert('ИНН необходимо заполнить');
-        return false
+        return false;
       }
 
       const url = "https://suggestions.dadata.ru/suggestions/api/4_1/rs/findById/party";
@@ -91,12 +84,13 @@ export default {
         body: JSON.stringify({query})
       }
 
+      let requestPerson;
+
       await fetch(url, options)
           .then(response => response.text())
-          .then(result => this.requestPerson = JSON.parse(result))
+          .then(result => requestPerson = JSON.parse(result))
           .catch(error => console.log("error", error));
-
-      this.parseResponse(this.requestPerson);
+      this.parseResponse(requestPerson);
     }
   }
 }

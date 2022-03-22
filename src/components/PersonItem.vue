@@ -84,14 +84,10 @@ export default {
 
   methods: {
     getRegistrationDate() {
-      console.log(this.person.value, this.person.registrationDate)
-
-
-
       const date = new Date(this.person.registrationDate);
-      const day = date.getDay() < 10 ? `0${date.getDay()}` : `${date.getDay()}`;
-      const month = date.getDay() < 10 ? `0${date.getMonth()}` : `${date.getMonth()}`;
-      return `${day}-${month}-${date.getFullYear()}`
+      const day = date.getDate() < 10 ? `0${date.getDate()}` : `${date.getDate()}`;
+      const month = date.getMonth() < 10 ? `0${date.getMonth() + 1}` : `${date.getMonth() + 1}`;
+      return `${day}-${month}-${date.getFullYear()}`;
 
     },
     editAddress() {
