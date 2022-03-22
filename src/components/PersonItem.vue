@@ -87,7 +87,8 @@ export default {
       const date = new Date(this.person.registrationDate);
       const day = date.getDate() < 10 ? `0${date.getDate()}` : `${date.getDate()}`;
       const month = date.getMonth() < 10 ? `0${date.getMonth() + 1}` : `${date.getMonth() + 1}`;
-      return `${day}-${month}-${date.getFullYear()}`;
+      const year = date.getFullYear();
+      return `${day}-${month}-${year}`;
 
     },
     editAddress() {
